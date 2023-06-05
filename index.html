@@ -18,6 +18,9 @@
       <label for="complexitySlider" class="label">Complexité :</label>
       <input type="range" id="complexitySlider" class="slider" min="1" max="10" step="1" value="5">
       <span id="complexityValue" class="value"></span>
+      
+      <label for="colorPicker" class="label">Couleur :</label>
+      <input type="color" id="colorPicker" class="color-picker" value="#000000">
     </div>
     
     <button id="generateImageButton" class="generate-button">Générer une image</button>
@@ -27,6 +30,7 @@
     <div id="errorMessage" class="error-message"></div>
   </div>
   
+  <script src="html2canvas.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
