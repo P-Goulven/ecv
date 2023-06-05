@@ -2,54 +2,7 @@
 <html>
 <head>
   <title>Générateur de formes</title>
-  <style>
-    /* Styles pour l'interface utilisateur */
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
-    
-    .container {
-      max-width: 500px;
-      margin: 0 auto;
-    }
-    
-    .shape {
-      width: 200px;
-      height: 200px;
-      background-color: #ccc;
-      margin: 20px auto;
-      border-radius: 50%;
-    }
-    
-    .controls {
-      margin-top: 20px;
-    }
-    
-    .label {
-      display: block;
-      margin-bottom: 5px;
-    }
-    
-    .slider {
-      width: 100%;
-    }
-    
-    .output-image {
-      max-width: 100%;
-      margin-top: 20px;
-    }
-    
-    .generate-button {
-      background-color: black;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
@@ -60,69 +13,20 @@
     <div class="controls">
       <label for="fillSlider" class="label">Niveau de remplissage :</label>
       <input type="range" id="fillSlider" class="slider" min="0" max="100" step="1" value="50">
+      <span id="fillValue" class="value"></span>
       
       <label for="complexitySlider" class="label">Complexité :</label>
       <input type="range" id="complexitySlider" class="slider" min="1" max="10" step="1" value="5">
+      <span id="complexityValue" class="value"></span>
     </div>
     
     <button id="generateImageButton" class="generate-button">Générer une image</button>
     
     <div class="output-image" id="outputImage"></div>
+    
+    <div id="errorMessage" class="error-message"></div>
   </div>
   
-  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-  <script>
-    // Récupérer les éléments DOM
-    const shape = document.querySelector('.shape');
-    const fillSlider = document.querySelector('#fillSlider');
-    const complexitySlider = document.querySelector('#complexitySlider');
-    const generateImageButton = document.querySelector('#generateImageButton');
-    const outputImage = document.querySelector('#outputImage');
-    
-    // Mettre à jour la forme en fonction des options sélectionnées
-    function updateShape() {
-      const fillPercentage = fillSlider.value;
-      const complexity = complexitySlider.value;
-      
-      const radius = shape.offsetWidth / 2;
-      const centerRadius = 12;
-      const innerRadius = radius - centerRadius;
-      
-      // Calculer le niveau de remplissage
-      const fillLevel = (100 - fillPercentage) / 100;
-      
-      // Calculer le nombre de segments pour la forme complexe
-      const segmentCount = Math.floor(complexity) * 10;
-      
-      // Calculer les coordonnées pour chaque segment
-      let shapePath = '';
-      for (let i = 0; i <= segmentCount; i++) {
-        const angle = (i / segmentCount) * Math.PI * 2;
-        const x = Math.cos(angle) * innerRadius;
-        const y = Math.sin(angle) * innerRadius;
-        
-        shapePath += `${x + radius}px ${y + radius}px,`;
-      }
-      
-      // Appliquer les styles à la forme
-      shape.style.backgroundImage = `radial-gradient(circle at center, transparent ${centerRadius}px, #ccc ${innerRadius}px)`;
-      shape.style.clipPath = `polygon(${shapePath})`;
-    }
-    
-    // Gérer les événements de changement des curseurs
-    fillSlider.addEventListener('input', updateShape);
-    complexitySlider.addEventListener('input', updateShape);
-    
-    // Générer l'image de la forme
-    generateImageButton.addEventListener('click', function() {
-      html2canvas(shape).then(function(canvas) {
-        const imageUrl = canvas.toDataURL();
-        outputImage.innerHTML = '<img src="' + imageUrl + '">';
-      });
-    });
-    
-    // Mettre à jour la forme initiale
-    updateShape();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
