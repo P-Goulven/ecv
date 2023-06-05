@@ -4,32 +4,28 @@ document.addEventListener('DOMContentLoaded', function() {
   const complexitySlider = document.querySelector('#complexitySlider');
   const fillValue = document.querySelector('#fillValue');
   const complexityValue = document.querySelector('#complexityValue');
+  const colorPicker = document.querySelector('#colorPicker');
   const generateImageButton = document.querySelector('#generateImageButton');
   const outputImage = document.querySelector('#outputImage');
   const errorMessage = document.querySelector('#errorMessage');
-
+  
   function updateShape() {
-    const fillPercentage = fillSlider.value;
-    const complexity = complexitySlider.value;
-
     const radius = shape.offsetWidth / 2;
     const centerRadius = 12;
-    const innerRadius = radius - centerRadius;
-
-    const fillLevel = (100 - fillPercentage) / 100;
-
-    const segmentCount = Math.floor(complexity) * 10;
-
+    const fillLevel = fillSlider.value / 100;
+    const segmentCount = complexitySlider.value;
+    const color = colorPicker.value;
     let shapePath = '';
-    for (let i = 0; i <= segmentCount; i++) {
+
+    for (let i = 0; i < segmentCount; i++) {
       const angle = (i / segmentCount) * Math.PI * 2;
-      const x = Math.cos(angle) * innerRadius;
-      const y = Math.sin(angle) * innerRadius;
+      const x = Math.cos(angle) * (radius * fillLevel);
+      const y = Math.sin(angle) * (radius * fillLevel);
 
       shapePath += `${x + radius}px ${y + radius}px,`;
     }
 
-    shape.style.backgroundImage = `radial-gradient(circle at center, transparent ${centerRadius}px, #ccc ${innerRadius}px)`;
+    shape.style.backgroundImage = `radial-gradient(circle at center, transparent ${centerRadius}px, ${color} ${radius * fillLevel}px)`;
     shape.style.clipPath = `polygon(${shapePath})`;
   }
 
@@ -41,8 +37,11 @@ document.addEventListener('DOMContentLoaded', function() {
   function generateImage() {
     html2canvas(shape)
       .then(function(canvas) {
-        const imageUrl = canvas.toDataURL();
-        outputImage.innerHTML = '<img src="' + imageUrl + '">';
+        const imageUrl = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.href = imageUrl;
+        link.download = 'forme.png';
+        link.click();
       })
       .catch(function(error) {
         errorMessage.textContent = "Une erreur s'est produite lors de la génération de l'image.";
@@ -57,6 +56,10 @@ document.addEventListener('DOMContentLoaded', function() {
   complexitySlider.addEventListener('input', function() {
     updateShape();
     updateSliderValues();
+  });
+
+  colorPicker.addEventListener('input', function() {
+    updateShape();
   });
 
   generateImageButton.addEventListener('click', function() {
