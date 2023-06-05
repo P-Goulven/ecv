@@ -34,8 +34,22 @@
     .slider {
       width: 100%;
     }
+    
+    .output-image {
+      max-width: 100%;
+      margin-top: 20px;
+    }
+    
+    .generate-button {
+      background-color: black;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
   </style>
-  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
 <body>
   <div class="container">
@@ -50,13 +64,20 @@
       <label for="complexitySlider" class="label">Complexité :</label>
       <input type="range" id="complexitySlider" class="slider" min="1" max="10" step="1" value="5">
     </div>
+    
+    <button id="generateImageButton" class="generate-button">Générer une image</button>
+    
+    <div class="output-image" id="outputImage"></div>
   </div>
   
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
   <script>
     // Récupérer les éléments DOM
     const shape = document.querySelector('.shape');
     const fillSlider = document.querySelector('#fillSlider');
     const complexitySlider = document.querySelector('#complexitySlider');
+    const generateImageButton = document.querySelector('#generateImageButton');
+    const outputImage = document.querySelector('#outputImage');
     
     // Mettre à jour la forme en fonction des options sélectionnées
     function updateShape() {
@@ -91,6 +112,14 @@
     // Gérer les événements de changement des curseurs
     fillSlider.addEventListener('input', updateShape);
     complexitySlider.addEventListener('input', updateShape);
+    
+    // Générer l'image de la forme
+    generateImageButton.addEventListener('click', function() {
+      html2canvas(shape).then(function(canvas) {
+        const imageUrl = canvas.toDataURL();
+        outputImage.innerHTML = '<img src="' + imageUrl + '">';
+      });
+    });
     
     // Mettre à jour la forme initiale
     updateShape();
