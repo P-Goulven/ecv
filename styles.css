@@ -1,0 +1,57 @@
+/* Styles pour l'interface utilisateur */
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.shape {
+  width: 200px;
+  height: 200px;
+  background-color: #ccc;
+  margin: 20px auto;
+  border-radius: 50%;
+}
+
+.controls {
+  margin-top: 20px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.slider {
+  width: 100%;
+}
+
+.value {
+  display: inline-block;
+  width: 40px;
+  text-align: center;
+}
+
+.output-image {
+  max-width: 100%;
+  margin-top: 20px;
+}
+
+.generate-button {
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
