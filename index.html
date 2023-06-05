@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Générateur de formes</title>
+  <style>
+    /* Styles pour l'interface utilisateur */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .shape {
+      width: 200px;
+      height: 200px;
+      background-color: #ccc;
+      margin: 20px auto;
+    }
+    
+    .controls {
+      margin-top: 20px;
+    }
+    
+    .button {
+      padding: 10px 20px;
+      background-color: #4286f4;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      margin-right: 10px;
+    }
+    
+    .options {
+      margin-top: 20px;
+    }
+    
+    .label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    
+    .slider {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Générateur de formes</h1>
+    
+    <div class="shape"></div>
+    
+    <div class="controls">
+      <button class="button" id="generateButton">Générer une nouvelle forme</button>
+    </div>
+    
+    <div class="options">
+      <label for="sizeSlider" class="label">Taille :</label>
+      <input type="range" id="sizeSlider" class="slider" min="50" max="300" step="10" value="200">
+      
+      <label for="colorPicker" class="label">Couleur :</label>
+      <input type="color" id="colorPicker" value="#ccc">
+    </div>
+  </div>
+  
+  <script>
+    // Ajoutez ici votre code JavaScript pour gérer les interactions de l'utilisateur
+    // et générer les formes en fonction des options sélectionnées.
+  </script>
+</body>
+</html>
