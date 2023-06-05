@@ -33,19 +33,21 @@ document.addEventListener('DOMContentLoaded', function() {
     fillValue.textContent = fillSlider.value;
     complexityValue.textContent = complexitySlider.value;
   }
-
+  
   function generateImage() {
-    html2canvas(shape)
-      .then(function(canvas) {
-        const imageUrl = canvas.toDataURL('image/png');
-        const link = document.createElement('a');
-        link.href = imageUrl;
-        link.download = 'forme.png';
-        link.click();
-      })
-      .catch(function(error) {
-        errorMessage.textContent = "Une erreur s'est produite lors de la génération de l'image.";
-      });
+  html2canvas(shape)
+    .then(function(canvas) {
+      const imageUrl = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = imageUrl;
+      link.download = 'forme.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    })
+    .catch(function(error) {
+      errorMessage.textContent = "Une erreur s'est produite lors de la génération de l'image.";
+    });
   }
 
   fillSlider.addEventListener('input', function() {
